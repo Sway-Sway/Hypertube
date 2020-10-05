@@ -87,6 +87,7 @@ def index(request):
 
     return render(request, 'index.html',)
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -131,7 +132,6 @@ class MovieList(ListView):
     model = Movie
     paginate_by = 10
     
-
 class MovieDetail(DetailView):
     model = Movie
 
@@ -193,6 +193,7 @@ class MovieSearch(ListView):
             object_list = self.model.objects.none()
         return object_list
 
+@login_required
 def add_comment(request, slug):
     movie = get_object_or_404(Movie, slug=slug)
     if request.method == 'POST':
@@ -211,6 +212,7 @@ def add_comment(request, slug):
         }
     return render(request, template,context)
 
+@login_required
 def watch(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
@@ -222,9 +224,11 @@ def watch(request):
         return render(request, 'videoplayer.html')
     return render(request, 'watch.html')
 
+@login_required
 def videoplayer(request):
     return render(request, 'videoplayer.html')
 
+@login_required
 def Watched(request,slug):
     movie=get_object_or_404(Movie,slug=slug)
     if movie.Watched:
@@ -234,6 +238,7 @@ def Watched(request,slug):
     movie.save()
     return redirect('movie_detail', slug=movie.slug)
 
+@login_required
 def watched_movie(request):
     queryset = Movie.objects.filter(Watched=True)
     print(queryset)
@@ -241,7 +246,8 @@ def watched_movie(request):
         "object_list": queryset
     }
     return render(request, 'watched.html', context)
-    
+
+@login_required    
 def search_external_torrents(request):
     # user = authenticate(username=username)
     # if user is not None:
