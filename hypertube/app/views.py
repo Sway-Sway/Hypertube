@@ -243,6 +243,10 @@ def watched_movie(request):
     return render(request, 'watched.html', context)
     
 def search_external_torrents(request):
+    # user = authenticate(username=username)
+    # if user is not None:
+    #     login(request, user)
+    #     return redirect('index')
     if request.method == 'POST':
         name = request.POST['movie']
         print(name)
