@@ -10,7 +10,7 @@ import uuid
 # Create your models here.
 class Profile(models.Model):
    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-   profile_pic = models.ImageField(upload_to='images', default='profile.png', null=True, blank=True)
+   profile_pic = models.ImageField(upload_to='images', default='profile.png', null=True)
    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
    def __str__(self):
